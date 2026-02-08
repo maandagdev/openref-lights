@@ -1,0 +1,132 @@
+<div class="referee-mobile-body">
+  <div class="referee-container-mobile">
+    <!-- Jury Overrule Banner -->
+    @if (hasJuryOverrule()) {
+      <div class="jury-overrule-banner">
+        <div class="jury-overrule-content">
+          <div class="warning-icon">⚠️</div>
+          <div class="jury-overrule-title">JURY OVERRULE</div>
+        </div>
+        <div class="jury-overrule-message">
+          The jury has made a decision. Your controls are disabled.
+        </div>
+      </div>
+    }
+
+    <!-- Lights Section - Only show when decisions are revealed -->
+    @if (isRevealingDecisions()) {
+      <div class="decision-section">
+        <div class="decision-indicator">
+          <div class="decision-label">REFEREE'S DECISION</div>
+          <div class="decision-display">
+            <div class="lights-row">
+              <app-decision-light [decisionClass]="getDecisionClass('LEFT')" label="LEFT" />
+              <app-decision-light [decisionClass]="getDecisionClass('CHIEF')" label="CHIEF" />
+              <app-decision-light [decisionClass]="getDecisionClass('RIGHT')" label="RIGHT" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      @if (getJuryDecision()) {
+        <div class="decision-section">
+          <div class="decision-indicator">
+            <div class="decision-label">JURY</div>
+            <div class="decision-display">
+              <div class="lights-row">
+                <app-decision-light [decisionClass]="getJuryDecisionClass()" label="DECISION" />
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    }
+
+    <!-- User Decision Feedback -->
+    @if (isSubmitting()) {
+      <div class="decision-section fade-in">
+        <div class="decision-indicator submitting">
+          <div class="decision-label pulse">Submitting decision in...</div>
+          <div class="countdown-display">
+            <div class="countdown-number">{{ countdown() }}</div>
+          </div>
+        </div>
+      </div>
+    } @else if (showDecisionFeedback()) {
+      <div class="decision-section fade-in">
+        <div class="decision-indicator">
+          <div class="decision-label">YOUR DECISION</div>
+          <div class="decision-display" [class]="currentDecision()!.toLowerCase()">
+            <div class="decision-circle"></div>
+          </div>
+          <div class="decision-text" [class]="currentDecision()!.toLowerCase()">
+            {{ getDecisionText(currentDecision()!) }}
+          </div>
+        </div>
+      </div>
+    }
+    <div class="page-title-section">
+      <h1 class="page-title">{{ getPositionLabel() }} Referee</h1>
+    </div>
+
+    <!-- Controls Section -->
+    <div class="controls-section">
+      <!-- Primary Controls -->
+      <div class="primary-controls">
+        <button
+          class="control-btn primary-btn white-btn"
+          (click)="makeDecision(Decision.WHITE)"
+          [disabled]="!canMakeDecision() || isDecisionDisabled(Decision.WHITE)"
+        >
+          <div class="btn-content">
+            <div class="btn-text">GOOD LIFT</div>
+          </div>
+        </button>
+
+        <button
+          class="control-btn primary-btn red-btn"
+          (click)="makeDecision(Decision.RED)"
+          [disabled]="!canMakeDecision() || isDecisionDisabled(Decision.RED)"
+        >
+          <div class="btn-content">
+            <div class="btn-text">NO LIFT</div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Secondary Controls -->
+      <div class="secondary-controls">
+        <button
+          class="control-btn secondary-btn blue-btn"
+          (click)="makeDecision(Decision.BLUE)"
+          [disabled]="!canMakeDecision() || isDecisionDisabled(Decision.BLUE)"
+        >
+          <div class="btn-content">
+            <div class="btn-text">NO LIFT</div>
+          </div>
+        </button>
+
+        <button
+          class="control-btn secondary-btn yellow-btn"
+          (click)="makeDecision(Decision.YELLOW)"
+          [disabled]="!canMakeDecision() || isDecisionDisabled(Decision.YELLOW)"
+        >
+          <div class="btn-content">
+            <div class="btn-text">NO LIFT</div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Reset Controls -->
+      @if (canResetDecision()) {
+        <div class="reset-controls">
+          <button class="control-btn reset-btn referee-reset" (click)="resetRefereeDecision()">
+            <div class="btn-content">
+              <div class="btn-text">RESET MY DECISION</div>
+            </div>
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+</div>

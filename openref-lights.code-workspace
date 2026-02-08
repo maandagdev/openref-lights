@@ -1,0 +1,138 @@
+{
+  "folders": [
+    {
+      "path": ".",
+    },
+  ],
+  "settings": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+    },
+    "typescript.preferences.importModuleSpecifier": "relative",
+    "files.exclude": {
+      "**/node_modules": true,
+      "**/dist": true,
+      "**/.angular": true,
+      "**/coverage": true,
+    },
+    "search.exclude": {
+      "**/node_modules": true,
+      "**/dist": true,
+      "**/coverage": true,
+      "**/.angular": true,
+      "**/package-lock.json": true,
+    },
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "jest.autoRun": "off",
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+    },
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+    },
+    "[json]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+    },
+  },
+  "extensions": {
+    "recommendations": [
+      "esbenp.prettier-vscode",
+      "dbaeumer.vscode-eslint",
+      "angular.ng-template",
+      "ms-vscode.vscode-typescript-next",
+      "firsttris.vscode-jest-runner",
+      "orta.vscode-jest",
+      "ms-azuretools.vscode-docker",
+      "eamodio.gitlens",
+    ],
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Debug Backend",
+        "runtimeExecutable": "npm",
+        "runtimeArgs": ["run", "start:debug"],
+        "cwd": "${workspaceFolder:Backend (NestJS)}",
+        "console": "integratedTerminal",
+        "internalConsoleOptions": "neverOpen",
+        "restart": true,
+      },
+      {
+        "type": "chrome",
+        "request": "launch",
+        "name": "Debug Frontend (Chrome)",
+        "url": "http://localhost:4200",
+        "webRoot": "${workspaceFolder:Frontend (Angular)}/src",
+        "sourceMaps": true,
+      },
+    ],
+    "compounds": [
+      {
+        "name": "Full Stack",
+        "configurations": ["Debug Backend", "Debug Frontend (Chrome)"],
+        "stopAll": true,
+      },
+    ],
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Start Backend Dev",
+        "type": "npm",
+        "script": "start:dev",
+        "path": "backend/",
+        "problemMatcher": ["$tsc"],
+        "isBackground": true,
+        "presentation": {
+          "reveal": "always",
+          "panel": "dedicated",
+        },
+      },
+      {
+        "label": "Start Frontend Dev",
+        "type": "npm",
+        "script": "start",
+        "path": "frontend/",
+        "problemMatcher": ["$tsc"],
+        "isBackground": true,
+        "presentation": {
+          "reveal": "always",
+          "panel": "dedicated",
+        },
+      },
+      {
+        "label": "Start Full Stack Dev",
+        "dependsOn": ["Start Backend Dev", "Start Frontend Dev"],
+        "problemMatcher": [],
+      },
+      {
+        "label": "Run Backend Tests",
+        "type": "npm",
+        "script": "test",
+        "path": "backend/",
+        "problemMatcher": ["$tsc"],
+        "presentation": {
+          "reveal": "always",
+          "panel": "shared",
+        },
+      },
+      {
+        "label": "Run Frontend Tests",
+        "type": "npm",
+        "script": "test",
+        "path": "frontend/",
+        "problemMatcher": ["$tsc"],
+        "presentation": {
+          "reveal": "always",
+          "panel": "shared",
+        },
+      },
+    ],
+  },
+}

@@ -1,0 +1,75 @@
+/* Referee Page Specific Styles */
+
+/* Jury Overrule Banner */
+.jury-overrule-banner {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+  padding: 1.5rem 1rem;
+  text-align: center;
+  animation: flash 2s ease-in-out infinite;
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.5);
+}
+
+.jury-overrule-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.warning-icon {
+  font-size: 2rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.jury-overrule-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.1em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.jury-overrule-message {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+@keyframes flash {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+
+/* Referee-specific decision circle */
+.decision-circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 8px solid rgba(150, 160, 180, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* Decision Colors */
+.decision-display.white .decision-circle {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+}
+
+.decision-display.red .decision-circle {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+}
+
+.decision-display.blue .decision-circle {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+}
+
+.decision-display.yellow .decision-circle {
+  background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
+}

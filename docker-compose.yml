@@ -1,0 +1,65 @@
+services:
+  # Backend service - NestJS with WebSocket
+  backend:
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile
+    container_name: openref-backend
+    ports:
+      - '${BACKEND_PORT:-3000}:3000'
+    environment:
+      - PORT=3000
+      - NODE_ENV=${NODE_ENV:-production}
+      - CORS_ORIGIN=${CORS_ORIGIN:-*}
+      - AUTH_TOKEN=${AUTH_TOKEN:-}
+    volumes:
+      # Mount source code for development (comment out for production)
+      - ./backend/src:/app/src
+      - ./backend/package.json:/app/package.json
+    restart: unless-stopped
+    networks:
+      - openref-network
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:3000']
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Frontend service - Angular served with nginx
+  frontend:
+    build:
+      context: .
+      dockerfile: ./frontend/Dockerfile
+    container_name: openref-frontend
+    ports:
+      - '${FRONTEND_PORT:-8080}:80'
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - openref-network
+    healthcheck:
+      test: ['CMD', 'wget', '--quiet', '--tries=1', '--spider', 'http://localhost']
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  openref-network:
+    driver: bridge
+
+# Development override:
+# Create docker-compose.dev.yml with:
+# services:
+#   backend:
+#     command: npm run start:dev
+#     environment:
+#       - NODE_ENV=development
+#   frontend:
+#     build:
+#       context: ./frontend
+#       target: development
+#     command: npm start
+#     ports:
+#       - "4200:4200"

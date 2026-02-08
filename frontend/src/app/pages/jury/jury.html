@@ -1,0 +1,94 @@
+<div class="referee-mobile-body">
+  <div class="referee-container-mobile">
+    <!-- Page Title -->
+    <div class="page-title-section">
+      <h1 class="page-title">Jury Panel</h1>
+    </div>
+
+    <!-- Jury Overrule Message -->
+    @if (isSubmitting()) {
+      <div class="decision-section fade-in">
+        <div class="decision-indicator submitting">
+          <div class="decision-label pulse">Submitting jury overrule in...</div>
+          <div class="countdown-display">
+            <div class="countdown-number">{{ countdown() }}</div>
+          </div>
+        </div>
+      </div>
+    } @else if (hasJuryOverrule()) {
+      <div class="decision-section fade-in jury-overrule-active">
+        <div class="decision-indicator">
+          <div class="decision-label">JURY HAS OVERRULED</div>
+          <div class="decision-display" [class]="getJuryDecisionClass()">
+            <div class="decision-color-indicator">●</div>
+            <div class="decision-text-row">
+              <div class="decision-text">{{ getJuryDecisionText() }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Controls Section -->
+    <div class="controls-section">
+      <!-- Primary Controls -->
+      <div class="primary-controls">
+        <button
+          class="control-btn primary-btn white-btn"
+          (click)="juryOverrule(Decision.WHITE)"
+          [disabled]="isDecisionDisabled(Decision.WHITE)"
+        >
+          <div class="btn-content">
+            <div class="btn-text">GOOD LIFT</div>
+          </div>
+        </button>
+
+        <button
+          class="control-btn primary-btn red-btn"
+          (click)="juryOverrule(Decision.RED)"
+          [disabled]="isDecisionDisabled(Decision.RED)"
+        >
+          <div class="btn-content">
+            <div class="btn-text">NO LIFT</div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Secondary Controls -->
+      <div class="secondary-controls">
+        <button
+          class="control-btn secondary-btn blue-btn"
+          (click)="juryOverrule(Decision.BLUE)"
+          [disabled]="isDecisionDisabled(Decision.BLUE)"
+        >
+          <div class="btn-content">
+            <div class="btn-text">NO LIFT</div>
+          </div>
+        </button>
+
+        <button
+          class="control-btn secondary-btn yellow-btn"
+          (click)="juryOverrule(Decision.YELLOW)"
+          [disabled]="isDecisionDisabled(Decision.YELLOW)"
+        >
+          <div class="btn-content">
+            <div class="btn-text">NO LIFT</div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Reset Controls -->
+      <div class="reset-controls">
+        <button
+          class="control-btn reset-btn"
+          (click)="clearJuryOverrule()"
+          [disabled]="!hasJuryOverrule()"
+        >
+          <div class="btn-content">
+            <div class="btn-text">CLEAR JURY OVERRULE</div>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

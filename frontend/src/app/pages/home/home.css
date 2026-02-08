@@ -1,0 +1,52 @@
+/* Home Page Specific Styles */
+
+.header {
+  text-align: center;
+  padding: 30px 20px;
+  color: white;
+  background-color: #333;
+  margin: 0;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.header p {
+  margin: 10px 0 0 0;
+  color: #ffc107;
+  font-size: 0.9rem;
+}
+
+#menu {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.menu-link {
+  display: block;
+  padding: 1.5rem;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  border-radius: 12px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  border: 1px solid #333;
+}
+
+.menu-link:hover {
+  background: linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}

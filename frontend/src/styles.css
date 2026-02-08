@@ -1,0 +1,505 @@
+/* Global styles for referee lights application */
+
+/* Root variables */
+:root {
+  --bg-dark: #000;
+  --text-light: #fff;
+
+  /* Decision colors for SVG lights */
+  --decision-white: #fff;
+  --decision-red: #dc3545;
+  --decision-blue: #007bff;
+  --decision-yellow: #ffc107;
+  --decision-inactive: #000;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-dark);
+  color: var(--text-light);
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Global Animations */
+@keyframes lightGrow {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fade-out {
+  animation: fadeOut 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.02);
+  }
+}
+
+.pulse {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes countdownPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+/* Decision color utility classes for light circles */
+.light-white {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+}
+
+.light-red {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+}
+
+.light-blue {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+}
+
+.light-yellow {
+  background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
+}
+
+.light-inactive {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+/* Decision Light Component */
+.light-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.light-circle {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 6px solid rgba(150, 160, 180, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.light-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #b0b8c8;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* SVG Light Base */
+.svg-light {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.svg-light.active {
+  animation: lightGrow 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Countdown Display (shared across components) */
+.countdown-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.countdown-number {
+  font-size: 4rem;
+  font-weight: 700;
+  color: #ffc107;
+  animation: countdownPulse 1s ease-in-out infinite;
+  text-shadow: 0 0 20px rgba(255, 193, 7, 0.5);
+}
+
+.decision-indicator.submitting {
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+
+/* Prevent text selection on touch devices */
+.control-btn,
+.btn-content,
+.btn-text {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* =============================================
+   Shared Panel Styles (Referee & Jury pages)
+   ============================================= */
+
+/* Mobile body wrapper */
+.referee-mobile-body {
+  margin: 0;
+  padding: 0;
+  background: #000;
+  overflow-x: hidden;
+}
+
+.referee-container-mobile {
+  min-height: 100vh;
+  background: #000;
+  color: #fff;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.lights-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+}
+
+/* Page Title */
+.page-title-section {
+  padding: 1.25rem 1rem;
+  text-align: center;
+  background: #3a3a3a;
+  border-bottom: 1px solid #222;
+}
+
+.page-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+/* Decision Section (shared by referee decisions and user decision) */
+.decision-section {
+  padding: 1rem 1rem;
+  background: #1e2a4a;
+  border-bottom: none;
+}
+
+.decision-indicator {
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.decision-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #b0b8c8;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+}
+
+.decision-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(20, 30, 50, 0.6);
+  border-radius: 20px;
+  padding: 2rem 2rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  margin-bottom: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.decision-text {
+  font-size: 1.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #fff;
+}
+
+/* Controls Section */
+.controls-section {
+  padding: 1.5rem 1rem;
+  background: #000;
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* Control Button Base Styles */
+.control-btn {
+  border: none;
+  border-radius: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transform: translateZ(0);
+}
+
+.control-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.control-btn:active::before {
+  left: 100%;
+}
+
+.control-btn:active {
+  transform: scale(0.96) translateZ(0);
+  transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.control-btn:disabled {
+  pointer-events: none !important;
+  cursor: not-allowed !important;
+  opacity: 0.3 !important;
+  transform: none !important;
+  filter: brightness(0.4) !important;
+}
+
+.btn-content,
+.btn-text {
+  pointer-events: none;
+}
+
+/* Primary Controls */
+.primary-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.primary-btn {
+  height: 120px;
+  font-size: 1.2rem;
+}
+
+.white-btn {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  color: #000;
+}
+
+.white-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  transform: translateY(-2px) translateZ(0);
+}
+
+.red-btn {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+  color: #fff;
+}
+
+.red-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #c82333 0%, #bd2130 100%);
+  box-shadow: 0 8px 32px rgba(220, 53, 69, 0.5);
+  transform: translateY(-2px) translateZ(0);
+}
+
+/* Secondary Controls */
+.secondary-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.secondary-btn {
+  height: 100px;
+  font-size: 1.1rem;
+}
+
+.blue-btn {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  color: #fff;
+}
+
+.blue-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+  box-shadow: 0 8px 32px rgba(0, 123, 255, 0.5);
+  transform: translateY(-2px) translateZ(0);
+}
+
+.yellow-btn {
+  background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
+  color: #000;
+}
+
+.yellow-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #e0a800 0%, #d39e00 100%);
+  box-shadow: 0 8px 32px rgba(255, 193, 7, 0.5);
+  transform: translateY(-2px) translateZ(0);
+}
+
+/* Reset Controls */
+.reset-controls {
+  display: flex;
+  justify-content: center;
+}
+
+.reset-btn {
+  background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+  color: #fff;
+  height: 70px;
+  font-size: 1rem;
+  width: 90%;
+  max-width: 500px;
+}
+
+.reset-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #5a6268 0%, #495057 100%);
+  box-shadow: 0 8px 32px rgba(108, 117, 125, 0.5);
+  transform: translateY(-2px) translateZ(0);
+}
+
+/* Shared responsive adjustments */
+@media (min-width: 768px) {
+  .primary-btn {
+    height: 140px;
+    font-size: 1.4rem;
+  }
+
+  .secondary-btn {
+    height: 120px;
+    font-size: 1.2rem;
+  }
+}
+
+@media (min-width: 1025px) {
+  .referee-container-mobile {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .primary-btn {
+    height: 160px;
+    font-size: 1.4rem;
+  }
+
+  .secondary-btn {
+    height: 140px;
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .control-btn {
+    min-height: 60px;
+    touch-action: manipulation;
+  }
+
+  .primary-btn {
+    height: 120px;
+  }
+
+  .secondary-btn {
+    height: 100px;
+  }
+
+  .controls-section {
+    padding: 1rem 0.75rem;
+    gap: 1.5rem;
+  }
+
+  .primary-controls,
+  .secondary-controls {
+    gap: 0.75rem;
+  }
+
+  .page-title {
+    font-size: 1.3rem;
+  }
+
+  .decision-label {
+    font-size: 1rem;
+  }
+
+  .decision-text {
+    font-size: 1.8rem;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .control-btn:active {
+    transform: scale(0.98) translateZ(0);
+  }
+}

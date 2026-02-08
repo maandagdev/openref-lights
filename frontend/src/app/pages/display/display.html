@@ -1,0 +1,29 @@
+<div class="display-container">
+  <div class="display-lights-wrapper">
+    <div class="display-lights">
+      @for (position of refereePositions; track position) {
+        @let decision = getDisplayDecision(position);
+        <div class="display-light-column">
+          <div class="display-light-container">
+            <div class="display-light-circle" [class]="getCircleClass(decision)"></div>
+            @if (decision) {
+              <div class="display-light-indicator" [class]="getIndicatorClass(decision)"></div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  @if (hasJuryOverrule()) {
+    <div class="display-jury-overrule">
+      <div class="display-jury-overrule-badge">⚠️ JURY OVERRULE ACTIVE ⚠️</div>
+    </div>
+  }
+
+  @if (isDisconnected()) {
+    <div class="display-state-indicator">
+      <span>Connecting...</span>
+    </div>
+  }
+</div>

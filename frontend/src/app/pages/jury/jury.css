@@ -1,0 +1,58 @@
+/* Jury Page Specific Styles */
+
+/* Jury overrule active state */
+.jury-overrule-active {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%);
+}
+
+.jury-overrule-active .decision-label {
+  color: #fff;
+}
+
+/* Jury decision color indicator */
+.decision-color-indicator {
+  font-size: 3rem;
+  margin-right: 1rem;
+}
+
+.decision-text-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Decision Color Classes */
+.decision-display.white .decision-color-indicator {
+  color: #fff;
+}
+
+.decision-display.red .decision-color-indicator {
+  color: #ff4757;
+}
+
+.decision-display.blue .decision-color-indicator {
+  color: #3498db;
+}
+
+.decision-display.yellow .decision-color-indicator {
+  color: #ffd32a;
+}
+
+/* Jury controls need more vertical space */
+.controls-section {
+  min-height: 60vh;
+}
+
+.controls-section h2 {
+  color: #ffc107;
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+/* Jury reset button styling */
+.reset-controls .control-btn.reset-btn {
+  width: 60%;
+  height: 80px;
+}
